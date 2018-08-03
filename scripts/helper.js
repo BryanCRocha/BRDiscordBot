@@ -3,6 +3,7 @@
  */
 module.exports = {
     readModuleFile: readModuleFile,
+    writeModuleFile: writeModuleFile,
     shuffle: shuffle,
     chunkify: chunkify
   };
@@ -17,8 +18,22 @@ var fs = require('fs');
  */
 function readModuleFile(path, callback) {
     try {
-        var filename = require.resolve(path);
-        fs.readFile(filename, 'utf8', callback);
+        let fileName = require.resolve(path);
+        fs.readFile(fileName, 'utf8', callback);
+    } catch (e) {
+        callback(e);
+    }
+}
+
+/**
+ * Write contents to a file
+ * @param {String} path to the file
+ * @param {function} callback function
+ */
+function writeModuleFile(path, content, callback) {
+    try {
+        let fileName = require.resolve(path);
+        fs.writeFile(fileName, content, callback);
     } catch (e) {
         callback(e);
     }
