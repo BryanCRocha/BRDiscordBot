@@ -1,5 +1,9 @@
 # CHANGELOG
 
+1.1.1 (August 5, 2018)
+- Prevent usage of random teams tool to users who have a role that allows
+  them to move players in their server.
+
 1.1.0 (August 4, 2018)
 - Update random team creation utility.
     - Team creation now stores teams information in local JSON file.

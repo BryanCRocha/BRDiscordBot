@@ -12,6 +12,11 @@ const DATA_FILE = "../storage/randomTeams.json";
  * @param {String} message is the Discord `message` object.
  */
 function randomTeams(client, message) {
+  if (!message.member.hasPermission("MOVE_MEMBERS")) {
+    message.reply("You must have permission to move users in this server to use random team commands.")
+    return;
+  }
+  
   let messageArray = message.content.split(" ");
   messageArray.splice(0,1); // Remove triggering command
 
