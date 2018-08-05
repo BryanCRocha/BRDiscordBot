@@ -2,9 +2,16 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var helper = require('./scripts/helper');
-var splitChannelIntoNumberOfTeams = require('./scripts/splitChannelIntoNumberOfTeams');
+var randomTeams = require('./scripts/randomTeams');
 
-helper.readModuleFile('../bot_token', function (err, bot_token) {
+var _prefix;
+
+helper.readModuleFile('../preferences.json', (err, content) => {
+  let preferences = JSON.parse(content);
+  _prefix = "prefix" in preferences ? preferences.prefix : "!";
+});
+
+helper.readModuleFile('../bot_token', (err, bot_token) => {
   client.login(bot_token);
 });
 
@@ -15,7 +22,7 @@ client.on('ready', () => {
 // Message evaluation
 client.on('message', message => {
   let text = message.content;
-  if (text.indexOf("!teams") == 0) {
-    splitChannelIntoNumberOfTeams(client, message);
+  if (text.indexOf(_prefix + "teams") == 0) {
+    randomTeams(client, message);
   }
 });
